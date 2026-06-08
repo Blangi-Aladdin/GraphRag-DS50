@@ -1,0 +1,11 @@
+streamlit
+pandas
+neo4j
+openai
+PyPDF2
+python-docx
+langchain-text-splitters
+pyvis
+streamlit-agraph
+rouge-score
+bert-score
