@@ -1361,9 +1361,6 @@ if uploaded_file is not None:
                     key="triplet_editor"
                 )
 
-                st.session_state["triplets"] = edited_triplets_df.to_dict(
-                    orient="records"
-                )
 
                 st.success(
                     f"Current triplets after manual editing: "
