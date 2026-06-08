@@ -1341,7 +1341,7 @@ if uploaded_file is not None:
             # 7. Human-in-the-loop triplet editor
             # --------------------------------------------------
 
-            if "triplets" in st.session_state:
+            if len(st.session_state["triplets"]) > 0:
 
                 st.write("### Human-in-the-loop triplet editor")
 
@@ -1403,6 +1403,10 @@ if uploaded_file is not None:
                         file_name="graphrag_triplets.csv",
                         mime="text/csv"
                     )
+            else:
+                st.info(
+                    "Extract triplets first to enable Human-in-the-Loop editing."
+                )
     else:
 
         st.warning("No text could be extracted from this document.")
@@ -1955,7 +1959,7 @@ if st.session_state["evaluation_history"]:
         history_df,
         use_container_width=True
     )
-    
+
 # ==========================================================
 # EXPORT EVALUATION HISTORY TO TXT
 # ==========================================================
