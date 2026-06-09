@@ -262,6 +262,22 @@ def get_openai_client():
 
     return OpenAI(api_key=api_key)
 
+def test_openai_connection(): # TEST OPENAI CONNECTION
+
+    client = get_openai_client()
+
+    if client is None:
+        return False
+
+    try:
+
+        client.models.list()
+
+        return True
+
+    except Exception:
+
+        return False
 
 def llm(prompt, model=None, temperature=0, max_tokens=1500):
 
@@ -1209,6 +1225,27 @@ st.sidebar.success(
     f"Active model: {st.session_state['selected_model']}"
 )
 
+st.sidebar.info( # LLM INFORMATION
+    f"""
+Provider: OpenAI
+
+Model: {st.session_state['selected_model']}
+
+"""
+)
+if st.sidebar.button("Test Connection"):
+
+    if test_openai_connection():
+
+        st.sidebar.success(
+            "OpenAI connection successful"
+        )
+
+    else:
+
+        st.sidebar.error(
+            "OpenAI connection failed"
+        )
 chunk_size = st.sidebar.number_input(
     "Chunk size",
     min_value=200,
