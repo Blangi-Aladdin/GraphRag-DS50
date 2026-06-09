@@ -263,7 +263,10 @@ def get_openai_client():
     return OpenAI(api_key=api_key)
 
 
-def llm(prompt, model="gpt-4o-mini", temperature=0, max_tokens=1500):
+def llm(prompt, model=None, temperature=0, max_tokens=1500):
+
+    if model is None:
+        model = st.session_state.get("selected_model", "gpt-4o-mini")
 
     client = get_openai_client()
 
@@ -1188,6 +1191,23 @@ def rename_node_in_neo4j(
 # =========================
 
 st.sidebar.header("Pipeline settings")
+
+st.sidebar.header("LLM Settings")
+
+selected_model = st.sidebar.selectbox(
+    "Model",
+    [
+        "gpt-4o-mini",
+        "gpt-4o"
+    ],
+    index=0
+)
+
+st.session_state["selected_model"] = selected_model
+
+st.sidebar.success(
+    f"Active model: {st.session_state['selected_model']}"
+)
 
 chunk_size = st.sidebar.number_input(
     "Chunk size",
